@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ClassCompassApi.Shared.Data;
+using ClassCompass.Shared.Data;
 using ClassCompassApi.Data;
 
 namespace ClassCompassApi

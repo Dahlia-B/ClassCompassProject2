@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ClassCompassApi.Shared.Data;
-using ClassCompassApi.Shared.Models;
+using ClassCompass.Shared.Data;
+using ClassCompass.Shared.Models;
 
 namespace ClassCompassApi.Controllers
 {
@@ -24,17 +24,19 @@ namespace ClassCompassApi.Controllers
             {
                 _context.Schools.Add(school);
                 await _context.SaveChangesAsync();
-                return Ok(new { 
+                return Ok(new
+                {
                     success = true,
-                    message = "School registered successfully", 
-                    school = school 
+                    message = "School registered successfully",
+                    school = school
                 });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { 
+                return BadRequest(new
+                {
                     success = false,
-                    error = ex.Message 
+                    error = ex.Message
                 });
             }
         }
@@ -45,7 +47,8 @@ namespace ClassCompassApi.Controllers
             try
             {
                 var schools = await _context.Schools.ToListAsync();
-                return Ok(new {
+                return Ok(new
+                {
                     success = true,
                     count = schools.Count,
                     schools = schools
@@ -53,9 +56,10 @@ namespace ClassCompassApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { 
+                return BadRequest(new
+                {
                     success = false,
-                    error = ex.Message 
+                    error = ex.Message
                 });
             }
         }
@@ -67,19 +71,21 @@ namespace ClassCompassApi.Controllers
             try
             {
                 var school = await _context.Schools.FindAsync(id);
-                if (school == null) 
+                if (school == null)
                     return NotFound(new { success = false, message = "School not found" });
-                
-                return Ok(new {
+
+                return Ok(new
+                {
                     success = true,
                     school = school
                 });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { 
+                return BadRequest(new
+                {
                     success = false,
-                    error = ex.Message 
+                    error = ex.Message
                 });
             }
         }

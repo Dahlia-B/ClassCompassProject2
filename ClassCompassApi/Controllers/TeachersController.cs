@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ClassCompassApi.Shared.Data;
-using ClassCompassApi.Shared.Models;
+using ClassCompass.Shared.Data;
+using ClassCompass.Shared.Models;
 
 namespace ClassCompassApi.Controllers
 {
@@ -33,11 +33,13 @@ namespace ClassCompassApi.Controllers
 
                 _context.Teachers.Add(teacher);
                 await _context.SaveChangesAsync();
-                
-                return Ok(new { 
+
+                return Ok(new
+                {
                     success = true,
-                    message = "Teacher registered successfully", 
-                    teacher = new {
+                    message = "Teacher registered successfully",
+                    teacher = new
+                    {
                         teacher.Id,
                         teacher.TeacherId,
                         teacher.Name,
@@ -49,7 +51,8 @@ namespace ClassCompassApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { 
+                return BadRequest(new
+                {
                     success = false,
                     error = ex.Message,
                     details = ex.InnerException?.Message
@@ -63,7 +66,8 @@ namespace ClassCompassApi.Controllers
             try
             {
                 var teachers = await _context.Teachers.ToListAsync();
-                return Ok(new {
+                return Ok(new
+                {
                     success = true,
                     count = teachers.Count,
                     teachers = teachers.Select(t => new {
@@ -78,9 +82,10 @@ namespace ClassCompassApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { 
+                return BadRequest(new
+                {
                     success = false,
-                    error = ex.Message 
+                    error = ex.Message
                 });
             }
         }
@@ -91,12 +96,14 @@ namespace ClassCompassApi.Controllers
             try
             {
                 var teacher = await _context.Teachers.FindAsync(id);
-                if (teacher == null) 
+                if (teacher == null)
                     return NotFound(new { success = false, message = "Teacher not found" });
-                
-                return Ok(new {
+
+                return Ok(new
+                {
                     success = true,
-                    teacher = new {
+                    teacher = new
+                    {
                         teacher.Id,
                         teacher.TeacherId,
                         teacher.Name,
@@ -108,9 +115,10 @@ namespace ClassCompassApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { 
+                return BadRequest(new
+                {
                     success = false,
-                    error = ex.Message 
+                    error = ex.Message
                 });
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+#nullable disable
+using System;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;

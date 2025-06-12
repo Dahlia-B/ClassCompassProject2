@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using ClassCompassApi.Shared.Models;
+using ClassCompass.Shared.Models;
 
 namespace ClassCompassApi.Interfaces
 {

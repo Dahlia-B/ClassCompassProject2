@@ -1,4 +1,4 @@
-﻿using ClassCompassApi.Shared.Data;
+﻿using ClassCompass.Shared.Data;
 
 namespace ClassCompassApi.Data
 {

@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ClassCompassApi.Shared.Data;
-using ClassCompassApi.Shared.Models;
+using ClassCompass.Shared.Data;
+using ClassCompass.Shared.Models;
 
 namespace ClassCompassApi.Controllers
 {
@@ -37,11 +37,13 @@ namespace ClassCompassApi.Controllers
 
                 _context.ClassRooms.Add(classRoom);
                 await _context.SaveChangesAsync();
-                
-                return Ok(new { 
+
+                return Ok(new
+                {
                     success = true,
-                    message = "ClassRoom registered successfully", 
-                    classRoom = new {
+                    message = "ClassRoom registered successfully",
+                    classRoom = new
+                    {
                         classRoom.Id,
                         classRoom.ClassId,
                         classRoom.Class,
@@ -56,7 +58,8 @@ namespace ClassCompassApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { 
+                return BadRequest(new
+                {
                     success = false,
                     error = ex.Message,
                     details = ex.InnerException?.Message
@@ -70,7 +73,8 @@ namespace ClassCompassApi.Controllers
             try
             {
                 var classRooms = await _context.ClassRooms.ToListAsync();
-                return Ok(new {
+                return Ok(new
+                {
                     success = true,
                     count = classRooms.Count,
                     classRooms = classRooms.Select(c => new {
@@ -88,9 +92,10 @@ namespace ClassCompassApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { 
+                return BadRequest(new
+                {
                     success = false,
-                    error = ex.Message 
+                    error = ex.Message
                 });
             }
         }
