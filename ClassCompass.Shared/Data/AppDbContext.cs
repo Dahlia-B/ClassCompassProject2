@@ -13,7 +13,7 @@ namespace ClassCompass.Shared.Data
         public DbSet<ClassRoom> ClassRooms { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
-        
+
         // Additional entities - only add DbSets if the model files actually exist
         public DbSet<Grade> Grades { get; set; }
         public DbSet<BehaviorRemark> BehaviorRemarks { get; set; }

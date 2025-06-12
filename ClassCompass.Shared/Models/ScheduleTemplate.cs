@@ -15,8 +15,8 @@ namespace ClassCompass.Shared.Models
         public int ClassId { get; set; }
         public string Subject { get; set; } = string.Empty;
         public int PeriodsPerWeek { get; set; }
-        public int Duration { get; set; } 
-        public string PreferredDays { get; set; } = string.Empty; 
-        public bool IsCore { get; set; } = true; 
+        public int Duration { get; set; }
+        public string PreferredDays { get; set; } = string.Empty;
+        public bool IsCore { get; set; } = true;
     }
 }

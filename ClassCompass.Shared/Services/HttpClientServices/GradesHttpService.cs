@@ -20,7 +20,7 @@ namespace ClassCompass.Shared.Services.HttpClientServices
             {
                 var response = await _httpClient.GetAsync($"{BaseEndpoint}/student/{studentId}");
                 response.EnsureSuccessStatusCode();
-                
+
                 var json = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<List<Grade>>(json) ?? new List<Grade>();
             }
@@ -37,7 +37,7 @@ namespace ClassCompass.Shared.Services.HttpClientServices
             {
                 var response = await _httpClient.GetAsync($"{BaseEndpoint}/assignment/{assignmentId}");
                 response.EnsureSuccessStatusCode();
-                
+
                 var json = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<List<Grade>>(json) ?? new List<Grade>();
             }
@@ -52,10 +52,10 @@ namespace ClassCompass.Shared.Services.HttpClientServices
         {
             var json = JsonConvert.SerializeObject(grade);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            
+
             var response = await _httpClient.PostAsync(BaseEndpoint, content);
             response.EnsureSuccessStatusCode();
-            
+
             var responseJson = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<Grade>(responseJson)!;
         }
@@ -64,10 +64,10 @@ namespace ClassCompass.Shared.Services.HttpClientServices
         {
             var json = JsonConvert.SerializeObject(grade);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            
+
             var response = await _httpClient.PutAsync($"{BaseEndpoint}/{grade.Id}", content);
             response.EnsureSuccessStatusCode();
-            
+
             var responseJson = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<Grade>(responseJson)!;
         }

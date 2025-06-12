@@ -17,7 +17,7 @@ namespace ClassCompass.Shared.Models
         public string DayOfWeek { get; set; } = string.Empty;
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-        public int WeekNumber { get; set; } 
+        public int WeekNumber { get; set; }
         public string Room { get; set; } = string.Empty;
         public bool IsActive { get; set; } = true;
 

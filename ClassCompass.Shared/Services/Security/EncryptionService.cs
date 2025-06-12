@@ -52,33 +52,33 @@ namespace ClassCompass.Shared.Services.Security
 
             var keyToUse = key ?? _defaultKey;
             var keyBytes = Encoding.UTF8.GetBytes(keyToUse);
-            
+
             using var aes = Aes.Create();
             aes.KeySize = KeySize;
             aes.BlockSize = BlockSize;
             aes.Mode = CipherMode.CBC;
             aes.Padding = PaddingMode.PKCS7;
-            
+
             // Use first 32 bytes of key for AES-256
             var aesKey = new byte[32];
             Array.Copy(keyBytes, aesKey, Math.Min(keyBytes.Length, 32));
             aes.Key = aesKey;
-            
+
             aes.GenerateIV();
-            
+
             using var encryptor = aes.CreateEncryptor();
             using var msEncrypt = new MemoryStream();
             using var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write);
             using var swEncrypt = new StreamWriter(csEncrypt);
-            
+
             swEncrypt.Write(plainText);
             swEncrypt.Close();
-            
+
             var encrypted = msEncrypt.ToArray();
             var result = new byte[aes.IV.Length + encrypted.Length];
             Array.Copy(aes.IV, 0, result, 0, aes.IV.Length);
             Array.Copy(encrypted, 0, result, aes.IV.Length, encrypted.Length);
-            
+
             return Convert.ToBase64String(result);
         }
 
@@ -90,30 +90,30 @@ namespace ClassCompass.Shared.Services.Security
             var keyToUse = key ?? _defaultKey;
             var keyBytes = Encoding.UTF8.GetBytes(keyToUse);
             var cipherBytes = Convert.FromBase64String(cipherText);
-            
+
             using var aes = Aes.Create();
             aes.KeySize = KeySize;
             aes.BlockSize = BlockSize;
             aes.Mode = CipherMode.CBC;
             aes.Padding = PaddingMode.PKCS7;
-            
+
             // Use first 32 bytes of key for AES-256
             var aesKey = new byte[32];
             Array.Copy(keyBytes, aesKey, Math.Min(keyBytes.Length, 32));
             aes.Key = aesKey;
-            
+
             // Extract IV from cipher bytes
             var iv = new byte[16];
             var encrypted = new byte[cipherBytes.Length - 16];
             Array.Copy(cipherBytes, 0, iv, 0, 16);
             Array.Copy(cipherBytes, 16, encrypted, 0, encrypted.Length);
             aes.IV = iv;
-            
+
             using var decryptor = aes.CreateDecryptor();
             using var msDecrypt = new MemoryStream(encrypted);
             using var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read);
             using var srDecrypt = new StreamReader(csDecrypt);
-            
+
             return srDecrypt.ReadToEnd();
         }
 

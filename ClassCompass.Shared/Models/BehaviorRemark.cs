@@ -22,10 +22,10 @@ namespace ClassCompass.Shared.Models
         public DateTime Date { get; set; }
 
         [MaxLength(100)]
-        public string RemarkType { get; set; } = string.Empty; 
+        public string RemarkType { get; set; } = string.Empty;
 
         [MaxLength(100)]
-        public string CreatedBy { get; set; } = string.Empty; 
+        public string CreatedBy { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public virtual Student? Student { get; set; }
     }

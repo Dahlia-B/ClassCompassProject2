@@ -14,8 +14,8 @@ namespace ClassCompass.Shared.Services
     public class ApiService
     {
         private readonly HttpClient _client;
-        private readonly string _baseUrl = "http://10.56.200.186:5004/";
-
+        private readonly string _baseUrl = "http://192.168.68.83:5004/";
+        
         public ApiService()
         {
             _client = new HttpClient();
@@ -54,7 +54,7 @@ namespace ClassCompass.Shared.Services
                 var json = JsonSerializer.Serialize(school);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await _client.PostAsync("api/School", content);
+                var response = await _client.PostAsync("api/Schools/register", content);
 
                 if (response.IsSuccessStatusCode)
                 {
