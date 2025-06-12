@@ -1,0 +1,2 @@
+This file is required by the Android build system.
+It ensures the raw resources folder is included in the project.

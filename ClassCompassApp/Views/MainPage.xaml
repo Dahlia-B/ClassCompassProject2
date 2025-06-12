@@ -1,0 +1,20 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:ClassCompassApp.Views"
+             x:Class="ClassCompassApp.Views.MainPage"
+             Title="Welcome">
+    <VerticalStackLayout Spacing="20" Padding="30" VerticalOptions="Center">
+        <Label Text="Welcome to Class Compass!" FontSize="32" HorizontalOptions="Center" />
+        <Button Text="School Sign-Up" Clicked="OnSchoolSignUpClicked" />
+        <Button Text="Teacher Sign-Up" Clicked="OnTeacherSignUpClicked" />
+        <Button Text="Student Sign-Up" Clicked="OnStudentSignUpClicked" />
+        <Button Text="Login" Clicked="OnLoginClicked" BackgroundColor="LightGray" />
+        <!-- NEW: API Test Button -->
+        <Button x:Name="TestApiButton"
+                Text="🔗 Test API Connection"
+                Clicked="OnTestApiClicked"
+                BackgroundColor="Orange"
+                TextColor="White"
+                Margin="0,20,0,0" />
+    </VerticalStackLayout>
+</ContentPage>

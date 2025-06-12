@@ -1,0 +1,96 @@
+﻿using ClassCompassApp.Models;
+
+namespace ClassCompassApp.Services
+{
+    public interface IGradesHttpService
+    {
+        Task<List<Grade>> GetGradesForStudentAsync(int studentId);
+        Task<List<Grade>> GetGradesForClassAsync(int classId);
+        Task<bool> AddGradeAsync(Grade grade);
+        Task<bool> UpdateGradeAsync(Grade grade);
+        Task<bool> DeleteGradeAsync(int gradeId);
+        Task<List<GradeCategory>> GetGradeCategoriesAsync();
+    }
+
+    public class GradesHttpService : IGradesHttpService
+    {
+        private readonly ApiService _apiService;
+
+        public GradesHttpService(ApiService apiService)
+        {
+            _apiService = apiService;
+        }
+
+        public async Task<List<Grade>> GetGradesForStudentAsync(int studentId)
+        {
+            try
+            {
+                return await _apiService.GetAsync<List<Grade>>($"grades/student/{studentId}");
+            }
+            catch (Exception ex)
+            {
+                return new List<Grade>();
+            }
+        }
+
+        public async Task<List<Grade>> GetGradesForClassAsync(int classId)
+        {
+            try
+            {
+                return await _apiService.GetAsync<List<Grade>>($"grades/class/{classId}");
+            }
+            catch (Exception ex)
+            {
+                return new List<Grade>();
+            }
+        }
+
+        public async Task<bool> AddGradeAsync(Grade grade)
+        {
+            try
+            {
+                return await _apiService.PostAsync("grades/add", grade);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateGradeAsync(Grade grade)
+        {
+            try
+            {
+                return await _apiService.PostAsync("grades/update", grade);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteGradeAsync(int gradeId)
+        {
+            try
+            {
+                return await _apiService.PostAsync($"grades/delete/{gradeId}", new { });
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<List<GradeCategory>> GetGradeCategoriesAsync()
+        {
+            try
+            {
+                return await _apiService.GetAsync<List<GradeCategory>>("grades/categories");
+            }
+            catch (Exception ex)
+            {
+                return new List<GradeCategory>();
+            }
+        }
+    }
+}

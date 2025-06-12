@@ -1,0 +1,100 @@
+﻿using System;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace ClassCompassApi.Services
+{
+    public class EncryptionService : IEncryptionService
+    {
+        private readonly byte[] _key;
+        private readonly byte[] _iv;
+
+        public EncryptionService()
+        {
+            // In production, these should come from secure configuration
+            using (var aes = Aes.Create())
+            {
+                aes.GenerateKey();
+                aes.GenerateIV();
+                _key = aes.Key;
+                _iv = aes.IV;
+            }
+        }
+
+        public EncryptionService(byte[] key, byte[] iv)
+        {
+            _key = key ?? throw new ArgumentNullException(nameof(key));
+            _iv = iv ?? throw new ArgumentNullException(nameof(iv));
+        }
+
+        public async Task<byte[]> EncryptAsync(byte[] data)
+        {
+            if (data == null) throw new ArgumentNullException(nameof(data));
+
+            using (var aes = Aes.Create())
+            {
+                aes.Key = _key;
+                aes.IV = _iv;
+
+                using (var encryptor = aes.CreateEncryptor())
+                {
+                    return await Task.Run(() => 
+                    {
+                        using (var ms = new MemoryStream())
+                        using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+                        {
+                            cs.Write(data, 0, data.Length);
+                            cs.FlushFinalBlock();
+                            return ms.ToArray();
+                        }
+                    });
+                }
+            }
+        }
+
+        public async Task<byte[]> DecryptAsync(byte[] encryptedData)
+        {
+            if (encryptedData == null) throw new ArgumentNullException(nameof(encryptedData));
+
+            using (var aes = Aes.Create())
+            {
+                aes.Key = _key;
+                aes.IV = _iv;
+
+                using (var decryptor = aes.CreateDecryptor())
+                {
+                    return await Task.Run(() =>
+                    {
+                        using (var ms = new MemoryStream(encryptedData))
+                        using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                        using (var output = new MemoryStream())
+                        {
+                            cs.CopyTo(output);
+                            return output.ToArray();
+                        }
+                    });
+                }
+            }
+        }
+
+        public async Task<string> EncryptStringAsync(string message)
+        {
+            if (string.IsNullOrEmpty(message)) return string.Empty;
+            
+            var data = Encoding.UTF8.GetBytes(message);
+            var encryptedData = await EncryptAsync(data);
+            return Convert.ToBase64String(encryptedData);
+        }
+
+        public async Task<string> DecryptStringAsync(string encryptedMessage)
+        {
+            if (string.IsNullOrEmpty(encryptedMessage)) return string.Empty;
+            
+            var encryptedData = Convert.FromBase64String(encryptedMessage);
+            var decryptedData = await DecryptAsync(encryptedData);
+            return Encoding.UTF8.GetString(decryptedData);
+        }
+    }
+}

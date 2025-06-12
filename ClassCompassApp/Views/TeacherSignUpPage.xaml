@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClassCompassApp.Views.TeacherSignUpPage"
+             Title="Teacher Registration">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Teacher Registration"
+                   FontSize="24"
+                   HorizontalOptions="Center"
+                   TextColor="{StaticResource Primary}" />
+
+            <Entry x:Name="TeacherNameEntry"
+                   Placeholder="Teacher Name"
+                   FontSize="16" />
+
+            <Entry x:Name="TeacherIdEntry"
+                   Placeholder="Teacher ID"
+                   Keyboard="Numeric"
+                   FontSize="16" />
+
+            <Entry x:Name="PasswordEntry"
+                   Placeholder="Password"
+                   IsPassword="True"
+                   FontSize="16" />
+
+            <Entry x:Name="SubjectEntry"
+                   Placeholder="Subject"
+                   FontSize="16" />
+
+            <Entry x:Name="SchoolIdEntry"
+                   Placeholder="School ID"
+                   Keyboard="Numeric"
+                   FontSize="16" />
+
+            <Button x:Name="RegisterTeacherButton"
+                    Text="Register Teacher"
+                    FontAttributes="Bold"
+                    BackgroundColor="{StaticResource Secondary}"
+                    TextColor="White"
+                     />
+
+            <Button Text="Back to Home"
+                    BackgroundColor="Gray"
+                    TextColor="White"
+                     />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

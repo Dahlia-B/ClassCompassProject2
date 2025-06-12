@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClassCompassApp.Views.AttendanceTrackingPage">
+    <StackLayout Padding="20">
+        <Label Text="Track Attendance" FontSize="24" HorizontalOptions="Center"/>
+        <Entry x:Name="StudentIdEntry" Placeholder="Enter Student ID"/>
+        <Picker x:Name="StatusPicker" Title="Select Status">
+            <Picker.Items>
+                <x:String>Present</x:String>
+                <x:String>Absent</x:String>
+                <x:String>Late</x:String>
+            </Picker.Items>
+        </Picker>
+        <Button Text="Submit Attendance" />
+    </StackLayout>
+</ContentPage>

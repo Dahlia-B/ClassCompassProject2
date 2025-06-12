@@ -1,0 +1,68 @@
+﻿using ClassCompass.Shared.Services.HttpClientServices;
+using ClassCompass.Shared.Services;
+using ClassCompass.Shared.Models;
+using Microsoft.Maui.Controls;
+
+namespace ClassCompassApp.Views;
+
+public partial class TeacherLoginPage : ContentPage
+{
+    private readonly IAuthHttpService _authHttpService;
+    private readonly ITeacherHttpService _teacherHttpService;
+
+    // Parameterless constructor for Shell navigation
+    public TeacherLoginPage() : this(
+        new AuthHttpService(new HttpClient { BaseAddress = new Uri("https://localhost:5004/") }),
+        new TeacherHttpService(new HttpClient { BaseAddress = new Uri("https://localhost:5004/") }))
+    {
+    }
+
+    // DI constructor
+    public TeacherLoginPage(IAuthHttpService authHttpService, ITeacherHttpService teacherHttpService)
+    {
+        InitializeComponent();
+        _authHttpService = authHttpService;
+        _teacherHttpService = teacherHttpService;
+    }
+
+    // Add these methods to your existing TeacherLoginPage.xaml.cs file
+
+    private async void OnLoginClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            // Get the entered values
+            var teacherId = TeacherIdEntry.Text;
+            var password = PasswordEntry.Text;
+
+            // Basic validation
+            if (string.IsNullOrWhiteSpace(teacherId) || string.IsNullOrWhiteSpace(password))
+            {
+                await DisplayAlert("Error", "Please enter both Teacher ID and Password", "OK");
+                return;
+            }
+
+            // Use your HTTP service for authentication
+            var token = await _authHttpService.LoginAsync(teacherId, password);
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                // Store teacher info if needed
+                // Navigate to teacher dashboard
+                await Shell.Current.GoToAsync("//TeacherDashboard");
+            }
+            else
+            {
+                await DisplayAlert("Error", "Invalid Teacher ID or Password", "OK");
+            }
+        }
+        catch (FormatException)
+        {
+            await DisplayAlert("Error", "Teacher ID must be a valid number", "OK");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Login failed: {ex.Message}", "OK");
+        }
+    }
+}

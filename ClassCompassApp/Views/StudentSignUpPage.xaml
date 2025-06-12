@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClassCompassApp.Views.StudentSignUpPage"
+             Title="Student Registration">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Student Registration" 
+                   FontSize="24" 
+                   HorizontalOptions="Center"
+                   TextColor="{StaticResource Primary}" />
+
+            <Label Text="(Teacher credentials required)" 
+                   FontSize="14" 
+                   HorizontalOptions="Center"
+                   TextColor="Gray" />
+
+            <Entry x:Name="StudentNameEntry" 
+                   Placeholder="Student Name"
+                   FontSize="16" />
+
+            <Entry x:Name="StudentIdEntry" 
+                   Placeholder="Student ID" 
+                   Keyboard="Numeric"
+                   FontSize="16" />
+
+            <Entry x:Name="StudentPasswordEntry" 
+                   Placeholder="Student Password" 
+                   IsPassword="True"
+                   FontSize="16" />
+
+            <Entry x:Name="ClassIdEntry" 
+                   Placeholder="Class ID" 
+                   Keyboard="Numeric"
+                   FontSize="16" />
+
+            <Label Text="Teacher Authorization:" 
+                   FontSize="16" 
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource Secondary}" />
+
+            <Entry x:Name="TeacherIdEntry" 
+                   Placeholder="Teacher ID" 
+                   Keyboard="Numeric"
+                   FontSize="16" />
+
+            <Entry x:Name="TeacherPasswordEntry" 
+                   Placeholder="Teacher Password" 
+                   IsPassword="True"
+                   FontSize="16" />
+
+            <Button Text="Register Student" 
+                    FontAttributes="Bold"
+                    BackgroundColor="{StaticResource Tertiary}"
+                    TextColor="White"
+                     />
+
+            <Button Text="Back to Home" 
+                    BackgroundColor="Gray"
+                    TextColor="White"
+                     />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

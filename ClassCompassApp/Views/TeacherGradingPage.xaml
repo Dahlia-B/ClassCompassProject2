@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClassCompassApp.Views.TeacherGradingPage">
+    <StackLayout>
+        <Label Text="Grade Student Homework" FontSize="24" />
+        <Entry x:Name="StudentIdEntry" Placeholder="Enter Student ID" />
+        <Entry x:Name="ScoreEntry" Placeholder="Enter Score (0-100)" Keyboard="Numeric" />
+        <Button Text="Submit Grade"  />
+    </StackLayout>
+</ContentPage>

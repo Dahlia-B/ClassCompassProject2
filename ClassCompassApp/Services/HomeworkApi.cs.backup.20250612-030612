@@ -1,0 +1,74 @@
+﻿using ClassCompassApp.Models;
+
+namespace ClassCompassApp.Services
+{
+    public class HomeworkApi
+    {
+        private readonly ApiService _apiService;
+
+        public HomeworkApi(ApiService apiService)
+        {
+            _apiService = apiService;
+        }
+
+        public async Task<List<Homework>> GetHomeworkForStudentAsync(int studentId)
+        {
+            try
+            {
+                return await _apiService.GetAsync<List<Homework>>($"homework/student/{studentId}");
+            }
+            catch (Exception ex)
+            {
+                return new List<Homework>();
+            }
+        }
+
+        public async Task<List<Homework>> GetHomeworkForClassAsync(int classId)
+        {
+            try
+            {
+                return await _apiService.GetAsync<List<Homework>>($"homework/class/{classId}");
+            }
+            catch (Exception ex)
+            {
+                return new List<Homework>();
+            }
+        }
+
+        public async Task<bool> SubmitHomeworkAsync(HomeworkSubmission submission)
+        {
+            try
+            {
+                return await _apiService.PostAsync("homework/submit", submission);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> CreateHomeworkAsync(Homework homework)
+        {
+            try
+            {
+                return await _apiService.PostAsync("homework/create", homework);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<List<HomeworkSubmission>> GetSubmissionsAsync(int homeworkId)
+        {
+            try
+            {
+                return await _apiService.GetAsync<List<HomeworkSubmission>>($"homework/{homeworkId}/submissions");
+            }
+            catch (Exception ex)
+            {
+                return new List<HomeworkSubmission>();
+            }
+        }
+    }
+}

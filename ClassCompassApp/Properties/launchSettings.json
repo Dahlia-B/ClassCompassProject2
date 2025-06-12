@@ -1,0 +1,23 @@
+﻿{
+  "profiles": {
+    "Blazor Web": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "",
+      "applicationUrl": "http://0.0.0.0:5003",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://0.0.0.0:5003"
+      }
+    },
+    "Windows": {
+      "commandName": "Project",
+      "dotnetRunMessages": true
+    },
+    "Android": {
+      "commandName": "Project",
+      "dotnetRunMessages": true
+    }
+  }
+}

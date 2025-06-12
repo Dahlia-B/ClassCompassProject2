@@ -1,0 +1,38 @@
+using System;
+using System.Threading.Tasks;
+
+namespace ClassCompassApi.Services
+{
+    public interface IEncryptionService
+    {
+        /// <summary>
+        /// Encrypts the provided data
+        /// </summary>
+        /// <param name="data">Data to encrypt</param>
+        /// <returns>Encrypted data</returns>
+        Task<byte[]> EncryptAsync(byte[] data);
+        
+        /// <summary>
+        /// Decrypts the provided encrypted data
+        /// </summary>
+        /// <param name="encryptedData">Encrypted data to decrypt</param>
+        /// <returns>Decrypted data</returns>
+        Task<byte[]> DecryptAsync(byte[] encryptedData);
+        
+        /// <summary>
+        /// Encrypts a string message
+        /// </summary>
+        /// <param name="message">Message to encrypt</param>
+        /// <returns>Encrypted message as base64 string</returns>
+        Task<string> EncryptStringAsync(string message);
+        
+        /// <summary>
+        /// Decrypts a base64 encrypted string
+        /// </summary>
+        /// <param name="encryptedMessage">Base64 encrypted message</param>
+        /// <returns>Decrypted message</returns>
+        Task<string> DecryptStringAsync(string encryptedMessage);    string Encrypt(string plainText);
+    string Decrypt(string encryptedText);
+}    string Encrypt(string plainText);
+    string Decrypt(string encryptedText);
+}

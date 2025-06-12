@@ -1,0 +1,50 @@
+﻿using ClassCompassApp.Models;
+
+namespace ClassCompassApp.Services
+{
+    public class AttendanceApi
+    {
+        private readonly ApiService _apiService;
+
+        public AttendanceApi(ApiService apiService)
+        {
+            _apiService = apiService;
+        }
+
+        public async Task<List<AttendanceRecord>> GetAttendanceRecordsAsync(int studentId)
+        {
+            try
+            {
+                return await _apiService.GetAsync<List<AttendanceRecord>>($"attendance/student/{studentId}");
+            }
+            catch (Exception ex)
+            {
+                return new List<AttendanceRecord>();
+            }
+        }
+
+        public async Task<bool> MarkAttendanceAsync(AttendanceRecord attendance)
+        {
+            try
+            {
+                return await _apiService.PostAsync("attendance/mark", attendance);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<List<AttendanceRecord>> GetClassAttendanceAsync(int classId, DateTime date)
+        {
+            try
+            {
+                return await _apiService.GetAsync<List<AttendanceRecord>>($"attendance/class/{classId}?date={date:yyyy-MM-dd}");
+            }
+            catch (Exception ex)
+            {
+                return new List<AttendanceRecord>();
+            }
+        }
+    }
+}
